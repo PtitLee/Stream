@@ -92,12 +92,12 @@ nav .navbar_buttons .input-group {
   display: none;
 }
 
-#emplacement_list_stream {
+#emplacement_list_stream_twitch {
   margin-bottom: 0px;
   margin-top: 20px;
 }
 
-#emplacement_list_stream label{
+#emplacement_list_stream_twitch label{
   margin-left: 10px;
   margin-bottom: 0px;
   font-size: 18px;

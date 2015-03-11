@@ -18,7 +18,7 @@
 
   <nav>
     <div ng-controller="ModalCtrl">
-      <script type="text/ng-template" id="modal_list_live_stream.html">
+      <script type="text/ng-template" id="modal_live_twitch.html">
 
         <div class="modal-header">
           <button class="btn close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
@@ -34,7 +34,26 @@
             <input type="text" class="form-control" name="twitch_username" ng-model="Twitch_userName" placeholder="Ton pseudo Twitch">
           </div>
 
-          <ul id="emplacement_list_stream" class="list-group">
+          <ul id="emplacement_list_stream_twitch" class="list-group">
+
+          </ul>
+
+        </div>
+        <div class="modal-footer">
+          <button ng-click="modal_switchStream()" id="btn_load_following_list" type="button" class="btn btn-primary">Visionner la chaine selectionnée</button>
+        </div>
+
+      </script>
+
+      <script type="text/ng-template" id="modal_live_dailymotion.html">
+
+        <div class="modal-header">
+          <button class="btn close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+          <h4>Quel sont les chaines GamingLive en ligne ?</h4>
+        </div>
+        <div class="modal-body">
+
+          <ul id="emplacement_list_stream_dailymotion" class="list-group">
 
           </ul>
 
@@ -57,7 +76,8 @@
 
       </div>
 
-      <button class="btn btn-default btn-xs" ng-click="open()">Voir ta liste de follow actif</button>
+      <button class="btn btn-default btn-xs" ng-click="openModalTwitch()">Voir ta liste de follow actif</button>
+      <button class="btn btn-default btn-xs" ng-click="openModalGamingLive()">Voir la liste des chaines GamingLive active</button>
 
       <div class="twitter">
         <a href="https://twitter.com/Ptit_Lee" class="twitter-follow-button" data-show-count="false">Follow @Ptit_Lee</a>
