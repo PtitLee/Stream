@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="StreamApp">
+<head>
+  <meta charset="UTF-8">
+  <title>StreamView by Ptit_Lee</title>
+  <link href="style.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+  <script src="angular.js"></script>
+
+</head>
+<body>
+
+  <nav>
+    <div ng-controller="ModalCtrl">
+      <script type="text/ng-template" id="modal_list_live_stream.html">
+
+        <div class="modal-header">
+          <button class="btn close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+          <h4>Quel chaine est en ligne ?</h4>
+        </div>
+        <div class="modal-body">
+
+
+          <div class="input-group marginRight5 barre_recherche_chaine">
+            <span class="input-group-btn">
+              <button ng-click="searchLiveStream(Twitch_userName)" id="btn_load_following_list" type="button" class="btn btn-primary">Quels sont les chaines en ligne que tu follow ?</button>
+            </span>
+            <input type="text" class="form-control" name="twitch_username" ng-model="Twitch_userName" placeholder="Ton pseudo Twitch">
+          </div>
+
+          <ul id="emplacement_list_stream" class="list-group">
+
+          </ul>
+
+        </div>
+        <div class="modal-footer">
+          <button ng-click="modal_switchStream()" id="btn_load_following_list" type="button" class="btn btn-primary">Visionner la chaine selectionnée</button>
+        </div>
+
+      </script>
+
+
+      <div class="btn-group btn-group-xs navbar_buttons" role="group" aria-label="...">
+
+        <div class="input-group floatL marginRight5">
+          <input type="text" name="stream_name" ng-model="stream_name" class="form-control input-xs" placeholder="Nom de la chaine">
+          <span class="input-group-btn">
+            <button class="btn btn-default btn-xs" ng-click="switch_stream(stream_name)">Changer de Stream</button>
+          </span>
+        </div>
+
+      </div>
+
+      <button class="btn btn-default btn-xs" ng-click="open()">Voir ta liste de follow actif</button>
+
+      <div class="twitter">
+        <a href="https://twitter.com/Ptit_Lee" class="twitter-follow-button" data-show-count="false">Follow @Ptit_Lee</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+
+
+    </div>
+  </nav>
+
+
+  <div class="content" ng-controller="ContentCtrl">
+
+    <div class="embed-video">
+      <iframe ng-src="{{video_url}}" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+    <div class="embed-chat">
+      <iframe ng-src="{{chat_url}}" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+
+  </div>
+
+
+
+
+
+</body>
+</html>
