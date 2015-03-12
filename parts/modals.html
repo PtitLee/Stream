@@ -1,0 +1,46 @@
+<script type="text/ng-template" id="modal_live_twitch.html">
+
+  <div class="modal-header">
+    <button class="btn close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+    <h4>Quel chaine est en ligne ?</h4>
+  </div>
+  <div class="modal-body">
+
+
+    <div class="input-group marginRight5 barre_recherche_chaine">
+      <span class="input-group-btn">
+        <button ng-click="searchLiveStream(Twitch_userName)" id="btn_load_following_list" type="button" class="btn btn-primary">Quels sont les chaines en ligne que tu follow ?</button>
+      </span>
+      <input type="text" class="form-control" name="twitch_username" ng-model="Twitch_userName" placeholder="Ton pseudo Twitch">
+    </div>
+
+    <ul id="emplacement_list_stream_twitch" class="list-group">
+
+    </ul>
+
+  </div>
+  <div class="modal-footer">
+    <button ng-click="modal_switchStream()" id="btn_load_following_list" type="button" class="btn btn-primary">Visionner la chaine selectionnée</button>
+  </div>
+
+</script>
+
+
+<script type="text/ng-template" id="modal_live_dailymotion.html">
+
+  <div class="modal-header">
+    <button class="btn close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+    <h4>Quel sont les chaines GamingLive en ligne ?</h4>
+  </div>
+  <div class="modal-body">
+
+    <ul id="emplacement_list_stream_dailymotion" class="list-group">
+
+    </ul>
+
+  </div>
+  <div class="modal-footer">
+    <button ng-click="modal_switchStream()" id="btn_load_following_list" type="button" class="btn btn-primary">Visionner la chaine selectionnée</button>
+  </div>
+
+</script>

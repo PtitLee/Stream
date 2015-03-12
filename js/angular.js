@@ -1,4 +1,4 @@
-angular.module('StreamApp', ['ui.bootstrap']);
+angular.module('StreamApp', ['ui.bootstrap', 'mc.resizer']);
 
 var follow_name = [];
 var follow_online = [];
@@ -72,6 +72,7 @@ StreamApp.controller('ModalCtrl', function ModalCtrl($scope, $rootScope, $sce, $
 
 
 });
+
 
 StreamApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
 

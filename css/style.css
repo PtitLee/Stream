@@ -72,10 +72,10 @@ nav .navbar_buttons .input-group {
 
 .embed-chat {
   float:right;
-  width: 15%;
-  height: 100%;
-  top: 0;
+  min-width: 15%;
+  top: 22px;
   right: 0;
+  bottom: 0;
   overflow: hidden;
   position: fixed;
 }
@@ -104,7 +104,25 @@ nav .navbar_buttons .input-group {
 }
 
 .twitter {
-  margin-right: 16%;
+  /*margin-right: 16%;*/
   margin-top: 1px;
   float:right;
+}
+
+
+#content-resizer {
+  background-color: #666;
+  position: absolute;
+  top: 22px;
+  bottom: 0px;
+  right: 15%;
+  width: 6px;
+  cursor: e-resize;
+  z-index: 99999999999999;
+}
+
+.transparent-layout {
+  width: 40px;
+  margin-left: -20px;
+  height: 100%;
 }
