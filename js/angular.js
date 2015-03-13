@@ -3,7 +3,7 @@ angular.module('StreamApp', ['ui.bootstrap', 'mc.resizer']);
 var follow_name = [];
 var follow_online = [];
 var testislive = '';
-
+var idChaineGamingLive = 'x1f124w';
 
 var StreamApp = angular.module('StreamApp');
 
@@ -30,7 +30,7 @@ StreamApp.controller('ModalCtrl', function ModalCtrl($scope, $rootScope, $sce, $
 
     var modalInstance = $modal.open({
       templateUrl: 'modal_live_twitch.html',
-      controller: 'ModalInstanceCtrl',
+      controller: 'ModalCtrlTwitch',
       size: size,
       resolve: {
 
@@ -53,17 +53,38 @@ StreamApp.controller('ModalCtrl', function ModalCtrl($scope, $rootScope, $sce, $
 
     var modalInstance = $modal.open({
       templateUrl: 'modal_live_dailymotion.html',
-      controller: 'ModalInstanceCtrl',
+      controller: 'ModalCtrlDailymotion',
       size: size,
       resolve: {
 
       }
     });
 
-    modalInstance.result.then(function (stream_name) {
+    modalInstance.opened.then(function (stream_name) {
 
-      $rootScope.video_url = $sce.trustAsResourceUrl('http://www.twitch.tv/' + stream_name + '/embed');
-      $rootScope.chat_url = $sce.trustAsResourceUrl('http://www.twitch.tv/' + stream_name + '/chat?popout=');
+      searchLiveStream('dailymotion', null);
+
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+
+    modalInstance.result.then(function (stream_name_plus_chat_channel) {
+
+      var stream_name = "";
+      var chat_channel = "";
+
+      var split = stream_name_plus_chat_channel.split("|-|");
+
+      if(split.length > 1)
+      {
+        stream_name = split[0];
+        chat_channel = split[1];
+      }
+
+      $rootScope.video_url = $sce.trustAsResourceUrl("//games.dailymotion.com/embed/"+ stream_name +"?quality=720&autoplay=1");
+
+      $rootScope.chat_url = $sce.trustAsResourceUrl('http://webirc.jeuxvideo.com/#Retroinde');
+     
 
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());
@@ -74,11 +95,22 @@ StreamApp.controller('ModalCtrl', function ModalCtrl($scope, $rootScope, $sce, $
 });
 
 
-StreamApp.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+StreamApp.controller('ModalCtrlTwitch', function ($scope, $modalInstance) {
 
   $scope.searchLiveStream = function (userName) {
     searchLiveStream('twitch', userName);
   };
+
+  $scope.modal_switchStream = function(){
+    $modalInstance.close($('input[name=nom_chaine]:checked').val());
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});
+
+StreamApp.controller('ModalCtrlDailymotion', function ($scope, $modalInstance) {
 
   $scope.modal_switchStream = function(){
     $modalInstance.close($('input[name=nom_chaine]:checked').val());
@@ -127,21 +159,27 @@ function searchLiveStream(TypeOfStream, userName)
   else if (TypeOfStream == "dailymotion")
   {
 
-    $.getJSON('https://api.dailymotion.com/user/x1f124w/videos?fields=id,mode,onair,title,&private=0&sort=visited&limit=100', function(data) {
+    $.getJSON('https://api.dailymotion.com/user/'+ idChaineGamingLive +'/videos?fields=audience,id,mode,onair,title,&private=0&sort=live-audience&limit=100', function(data) {
 
-        follow_name = [];
-        for (var i = 0; i < data.follows.length; i++) 
-        {
-          follow_name.push(data.follows[i].channel.name);
-        }
+      var matchDailyIrc = '';
 
-    }).done(function() {
+      $.getJSON('./js/matchDailyIrc.json', function(data) {
+        matchDailyIrc = data;
+      });
 
       //clear Online Stream
       $('#emplacement_list_stream_dailymotion').html("");
 
-      //Fill Online Stream
-      $('#emplacement_list_stream_dailymotion').append('<li class="list-group-item"><input type="radio" name="nom_chaine" value="'+follow_online[i][0]+'" id="'+follow_online[i][0]+'"><label for="'+follow_online[i][0]+'">'+follow_online[i][0]+'</label><span class="badge">'+follow_online[i][1]+'</span></li>');
+      for (var i = 0; i < data.list.length; i++) 
+      {
+        if(data.list[i].onair == true)
+        {
+
+          //Fill Online Stream
+          $('#emplacement_list_stream_dailymotion').append('<li class="list-group-item"><input type="radio" name="nom_chaine" value="'+ data.list[i].id +'|-|GamingLivetv2" id="'+ data.list[i].id +'"><label for="'+ data.list[i].id +'">'+ data.list[i].title +'</label><span class="badge">'+data.list[i].audience+' viewers</span></li>');
+        }
+
+      }
 
     });
 

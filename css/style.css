@@ -103,6 +103,17 @@ nav .navbar_buttons .input-group {
   font-size: 18px;
 }
 
+#emplacement_list_stream_dailymotion {
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+
+#emplacement_list_stream_dailymotion label{
+  margin-left: 10px;
+  margin-bottom: 0px;
+  font-size: 18px;
+}
+
 .twitter {
   /*margin-right: 16%;*/
   margin-top: 1px;
