@@ -10,8 +10,8 @@ var StreamApp = angular.module('StreamApp');
 StreamApp.controller('ContentCtrl', function ($scope, $rootScope, $sce) {
 
   //valeur par défaut
-  $rootScope.video_url = $sce.trustAsResourceUrl("//games.dailymotion.com/embed/x1zp0b8?quality=720&autoplay=1");
-  $rootScope.chat_url = $sce.trustAsResourceUrl('http://webirc.jeuxvideo.com/#g-e2');
+  $rootScope.video_url = $sce.trustAsResourceUrl("//games.dailymotion.com/embed/x1uf230?quality=720&autoplay=1");
+  $rootScope.chat_url = $sce.trustAsResourceUrl('http://webirc.jeuxvideo.com/#GamingLivetv1');
 
 
   $rootScope.switch_stream = function(stream_name){
@@ -68,22 +68,20 @@ StreamApp.controller('ModalCtrl', function ModalCtrl($scope, $rootScope, $sce, $
       $log.info('Modal dismissed at: ' + new Date());
     });
 
-    modalInstance.result.then(function (stream_name_plus_chat_channel) {
+    modalInstance.result.then(function (stream_name) {
 
-      var stream_name = "";
-      var chat_channel = "";
+      var chat_channel = '';
 
-      var split = stream_name_plus_chat_channel.split("|-|");
+      $.getJSON('./js/matchDailyIrc.json', function(data) {
 
-      if(split.length > 1)
-      {
-        stream_name = split[0];
-        chat_channel = split[1];
-      }
+        chat_channel = data[stream_name];
+
+      });
+
 
       $rootScope.video_url = $sce.trustAsResourceUrl("//games.dailymotion.com/embed/"+ stream_name +"?quality=720&autoplay=1");
 
-      $rootScope.chat_url = $sce.trustAsResourceUrl('http://webirc.jeuxvideo.com/#Retroinde');
+      $rootScope.chat_url = $sce.trustAsResourceUrl('http://webirc.jeuxvideo.com/#'+chat_channel);
      
 
     }, function () {
@@ -161,12 +159,6 @@ function searchLiveStream(TypeOfStream, userName)
 
     $.getJSON('https://api.dailymotion.com/user/'+ idChaineGamingLive +'/videos?fields=audience,id,mode,onair,title,&private=0&sort=live-audience&limit=100', function(data) {
 
-      var matchDailyIrc = '';
-
-      $.getJSON('./js/matchDailyIrc.json', function(data) {
-        matchDailyIrc = data;
-      });
-
       //clear Online Stream
       $('#emplacement_list_stream_dailymotion').html("");
 
@@ -176,7 +168,7 @@ function searchLiveStream(TypeOfStream, userName)
         {
 
           //Fill Online Stream
-          $('#emplacement_list_stream_dailymotion').append('<li class="list-group-item"><input type="radio" name="nom_chaine" value="'+ data.list[i].id +'|-|GamingLivetv2" id="'+ data.list[i].id +'"><label for="'+ data.list[i].id +'">'+ data.list[i].title +'</label><span class="badge">'+data.list[i].audience+' viewers</span></li>');
+          $('#emplacement_list_stream_dailymotion').append('<li class="list-group-item"><input type="radio" name="nom_chaine" value="'+ data.list[i].id+'" id="'+ data.list[i].id +'"><label for="'+ data.list[i].id +'">'+ data.list[i].title +'</label><span class="badge">'+data.list[i].audience+' viewers</span></li>');
         }
 
       }
