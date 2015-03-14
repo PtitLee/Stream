@@ -129,7 +129,7 @@ nav .navbar_buttons .input-group {
   right: 15%;
   width: 6px;
   cursor: e-resize;
-  z-index: 99999999999999;
+  z-index: 1000;
 }
 
 .transparent-layout {
