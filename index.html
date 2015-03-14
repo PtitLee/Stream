@@ -39,7 +39,7 @@
       <div class="btn-group btn-group-xs navbar_buttons" role="group" aria-label="...">
 
         <div class="input-group floatL marginRight5">
-          <input type="text" name="stream_name" ng-model="stream_name" class="form-control input-xs" placeholder="Nom de la chaine">
+          <input type="text" name="stream_name" ng-model="stream_name" class="form-control input-xs" placeholder="Nom de la chaine Twitch">
           <span class="input-group-btn">
             <button class="btn btn-default btn-xs" ng-click="switch_stream(stream_name)">Changer de Stream</button>
           </span>
@@ -47,7 +47,7 @@
 
       </div>
 
-      <button class="btn btn-default btn-xs" ng-click="openModalTwitch()">Voir ta liste de follow actif</button>
+      <button class="btn btn-default btn-xs" ng-click="openModalTwitch()">Voir ta liste de follow Twitch actif</button>
       <button class="btn btn-default btn-xs" ng-click="openModalGamingLive()">Voir la liste des chaines GamingLive active</button>
 
       <div class="twitter">
@@ -63,11 +63,11 @@
   <div class="content" ng-controller="ContentCtrl">
 
     <div class="container-fluid embed-video">
-      <iframe ng-src="{{video_url}}" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+      <iframe id="iframe_video" ng-src="{{video_url}}" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
     </div>
 
     <div class="container-fluid embed-chat">
-      <iframe ng-src="{{chat_url}}" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+      <iframe id="iframe_chat" ng-src="{{chat_url}}" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
     </div>
 
 

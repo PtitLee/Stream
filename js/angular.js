@@ -22,7 +22,7 @@ StreamApp.controller('ContentCtrl', function ($scope, $rootScope, $sce) {
 
 });
 
-StreamApp.controller('ModalCtrl', function ModalCtrl($scope, $rootScope, $sce, $rootScope, $modal, $log) {
+StreamApp.controller('ModalCtrl', function ModalCtrl($scope, $rootScope, $compile, $sce, $rootScope, $modal, $log) {
 
 
   //Gestion de la modal twitch
@@ -74,15 +74,27 @@ StreamApp.controller('ModalCtrl', function ModalCtrl($scope, $rootScope, $sce, $
 
       $.getJSON('./js/matchDailyIrc.json', function(data) {
 
+
         chat_channel = data[stream_name];
+        console.log(data);
 
-      });
+      }).done(function() {
+        
+
+  		$rootScope.video_url = $sce.trustAsResourceUrl("//games.dailymotion.com/embed/"+ stream_name +"?quality=720&autoplay=1");
+
+  		$rootScope.chat_url = $sce.trustAsResourceUrl('http://webirc.jeuxvideo.com/#'+chat_channel);
+
+		  //avoid iframe reload forbid
+
+      var template = '<iframe id="iframe_chat" ng-src="{{chat_url}}" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+      var linkFn = $compile(template);
+      var content = linkFn($scope);
+      $('.container-fluid.embed-chat').html(content);
+
+	  });
 
 
-      $rootScope.video_url = $sce.trustAsResourceUrl("//games.dailymotion.com/embed/"+ stream_name +"?quality=720&autoplay=1");
-
-      $rootScope.chat_url = $sce.trustAsResourceUrl('http://webirc.jeuxvideo.com/#'+chat_channel);
-     
 
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());
