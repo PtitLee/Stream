@@ -74,9 +74,7 @@ StreamApp.controller('ModalCtrl', function ModalCtrl($scope, $rootScope, $compil
 
       $.getJSON('./js/matchDailyIrc.json', function(data) {
 
-
         chat_channel = data[stream_name];
-        console.log(data);
 
       }).done(function() {
         
